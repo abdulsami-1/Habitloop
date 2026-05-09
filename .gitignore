@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/app/generated/prisma
+
+# Editor and tool-specific settings
+.claude/
+.dev-server.log
+
+# pnpm projects should not track npm lock file
+package-lock.json
