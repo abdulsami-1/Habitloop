@@ -18,7 +18,7 @@ type NotificationsStore = {
   markAllRead: () => Promise<void>
 }
 
-export const useNotificationsStore = create<NotificationsStore>((set, get) => ({
+export const useNotificationsStore = create<NotificationsStore>((set) => ({
   notifications: [],
   unreadCount: 0,
   loading: false,

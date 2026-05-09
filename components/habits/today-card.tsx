@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Flame } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -15,15 +15,16 @@ type Props = {
 }
 
 export function TodayCard({ habit, completed, streak, note, onToggle, onNoteSave }: Props) {
-  const [localNote, setLocalNote] = useState(note)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  // Sync textarea DOM value when parent resets note (e.g. after successful save)
   useEffect(() => {
-    setLocalNote(note)
+    if (textareaRef.current) textareaRef.current.value = note
   }, [note])
 
   const handleBlur = () => {
-    if (localNote !== note) onNoteSave(localNote)
+    const current = textareaRef.current?.value ?? ""
+    if (current !== note) onNoteSave(current)
   }
 
   return (
@@ -110,8 +111,7 @@ export function TodayCard({ habit, completed, streak, note, onToggle, onNoteSave
         <div className="px-4 pb-3 pl-[4.75rem]">
           <textarea
             ref={textareaRef}
-            value={localNote}
-            onChange={(e) => setLocalNote(e.target.value)}
+            defaultValue={note}
             onBlur={handleBlur}
             placeholder="Add a note… (optional)"
             rows={1}

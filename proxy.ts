@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { decrypt } from "@/lib/session"
 
-const PUBLIC_ROUTES = ["/login", "/register"]
+const PUBLIC_ROUTES = ["/", "/home", "/login", "/register"]
 const AUTH_ROUTES = ["/login", "/register"]
 
 // 60 req/min/IP — module-level, single-instance only (replace with Redis for multi-instance)

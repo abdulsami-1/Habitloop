@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { Loader2, User } from "lucide-react"
@@ -17,13 +17,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 export default function ProfilePage() {
   const { user, setUser } = useAuthStore()
   const [loading, setLoading] = useState(false)
-  const [hydrated, setHydrated] = useState(false)
 
-  useEffect(() => {
-    setHydrated(true)
-  }, [])
-
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ProfileInput>({
+  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<ProfileInput>({
     resolver: zodResolver(profileSchema),
     defaultValues: { name: user?.name ?? "", timezone: user?.timezone ?? "UTC" },
   })
@@ -35,7 +30,7 @@ export default function ProfilePage() {
     }
   }, [user, setValue])
 
-  const timezone = watch("timezone")
+  const timezone = useWatch({ control, name: "timezone" })
 
   const onSubmit = async (data: ProfileInput) => {
     setLoading(true)
@@ -59,7 +54,7 @@ export default function ProfilePage() {
     }
   }
 
-  if (!hydrated) {
+  if (!user) {
     return (
       <div className="max-w-lg space-y-6">
         <div className="h-40 rounded-xl border border-border bg-card animate-pulse" />

@@ -8,7 +8,7 @@ import {
   SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, arrayMove,
 } from "@dnd-kit/sortable"
 import { motion, AnimatePresence } from "framer-motion"
-import { Plus, Target, Loader2 } from "lucide-react"
+import { Plus, Target } from "lucide-react"
 import { toast } from "sonner"
 import { useHabitsStore } from "@/store/habits-store"
 import { HabitCard } from "@/components/habits/habit-card"

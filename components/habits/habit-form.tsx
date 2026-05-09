@@ -1,6 +1,6 @@
 "use client"
 import { z } from "zod"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { habitSchema, type HabitInput } from "@/lib/validations"
@@ -25,7 +25,7 @@ type Props = {
 }
 
 export function HabitForm({ habit, onSubmit, loading }: Props) {
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<HabitFormValues>({
+  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<HabitFormValues>({
     resolver: zodResolver(habitSchema),
     defaultValues: {
       name: habit?.name ?? "",
@@ -37,9 +37,9 @@ export function HabitForm({ habit, onSubmit, loading }: Props) {
     },
   })
 
-  const color = watch("color")
-  const icon = watch("icon")
-  const activeDays = watch("activeDays")
+  const color = useWatch({ control, name: "color" })
+  const icon = useWatch({ control, name: "icon" })
+  const activeDays = useWatch({ control, name: "activeDays" })
 
   const toggleDay = (day: number) => {
     const current = activeDays ?? []

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 import bcrypt from "bcryptjs"
-import { Prisma } from "@/app/generated/prisma/client"
+import { Prisma } from "@prisma/client"
 import { signupSchema } from "@/lib/validations"
 import { prisma } from "@/lib/prisma"
 import { createSession } from "@/lib/session"
