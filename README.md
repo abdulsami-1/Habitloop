@@ -164,8 +164,4 @@ pnpm exec prisma migrate deploy   # apply migrations
 pnpm exec prisma studio           # Prisma GUI
 ```
 
----
 
-## License
-
-MIT
